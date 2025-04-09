@@ -31,14 +31,14 @@ def despedir_con_nombre(pepe):
 def main():
     url_hola = url_for("saludar")
     # url_dado = url_for("dado", cara=6)
-    url_logo = url_for("static", filename="momo.jpeg")
+    url_logo = url_for("static", filename="momo.jpeg" )
     
     return f"""
     <a href="{url_hola}">Hola</a>
     <br>
     <a href="{url_for("despedir")}">Chau</a>
     <br>
-    <a href="{url_logo}">Logo</a>
+    <a href="{url_logo}" target="_blank">Logo</a>
     <br>
    
 
