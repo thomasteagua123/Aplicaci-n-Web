@@ -8,3 +8,6 @@ opciones (flask run)
 Rutas simple
 Ruta con argumentos
 Ruta estática 
+
+los que empiezan con /, son una ruta absoluta
+los que no empiezan con /, es una ruta relativa
