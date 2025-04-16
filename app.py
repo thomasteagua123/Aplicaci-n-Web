@@ -1,7 +1,35 @@
 from flask import Flask, url_for
+import sqlite3
 
 app = Flask(__name__)
+db = None
 
+def abrirConexiones():
+    global db
+    db = sqlite3.connect("instance/datos.sqlite")
+    db.row_factory=sqlite3.Row
+    return db
+
+def cerrarConexiones():
+    global db
+    if db is not None:
+        db.close()
+        db=None
+
+@app.route("/usuarios/")
+def obtenerGente():
+    global db
+    conexion = abrirConexiones()
+    cursor = conexion.cursor()
+    cursor.execute=("SELECT * FROM usuarios")
+    resultado= cursor.fetchall()
+    cerrarConexiones()
+    fila = [dict(row) for row in resultado]
+    return str(fila)
+
+# @app.route("/rutas")
+# def rutas():
+#     url_hola=
 # @app.route("/")
 # def principal():
 #     return """ \
