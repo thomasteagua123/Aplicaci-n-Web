@@ -147,6 +147,15 @@ def testDetalle(id):
     cerrarConexion()
     fila = dict(resultado)
     return str(fila)
+
+@app.route("/sqlite/cambiar-email/<string:usuario>/<string:email>")
+def testUpdate(usuario, email):
+    abrirConexion()
+    db.cursor()
+    db.execute("UPDATE usuarios set email=? WHERE usuario = ?;", (email,usuario))
+    db.commit()
+    cerrarConexion()
+    return f"Se cambio el email {email} de {usuario}"
     
 
 @app.route("/mostrar-datos-plantilla/<int:id>")
