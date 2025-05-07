@@ -162,16 +162,12 @@ def testUpdate(usuario, email):
 def datos_plantilla(id):
     abrirConexion()
     cursor = db.cursor()
-    cursor.execute("SELECT id, usuario, email, direccion, telefono FROM usuarios WHERE id = ?; ", (id,))
+    cursor.execute("SELECT id, usuario, email FROM usuarios WHERE id = ?; ", (id,))
     res = cursor.fetchone()
     cerrarConexion()
     usuario = None
     email = None
-    direccion = None
-    telefono = None
     if res != None:
         usuario=res['usuario']
         email=res['email']
-        direccion=res['direccion']
-        telefono=res['telefono']
-    return render_template("datos.html", id=id, usuario=usuario, email=email, direccion=direccion, telefono=telefono)
+    return render_template("datos.html", id=id, usuario=usuario, email=email)
