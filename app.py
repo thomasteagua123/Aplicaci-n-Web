@@ -129,11 +129,11 @@ def testDelete(id):
     return f"Se borro el id {id} en la tabla de usuarios."
 
 
-@app.route("/sqlite/agregar/<string:usuario>/<string:email>")
-def testAgregar(usuario, email):
+@app.route("/sqlite/agregar/<string:usuario>/<string:email>/<int:telefono>/<string:direccion>")
+def testAgregar(usuario, email, telefono, direccion):
     abrirConexion()
     db.cursor()
-    db.execute("INSERT INTO usuarios(usuario, email) VALUES (?, ?)", (usuario, email))
+    db.execute("INSERT INTO usuarios(usuario, email, telefono, direccion) VALUES (?, ?, ?, ?)", (usuario, email, telefono, direccion))
     db.commit()
     cerrarConexion()
     return f"Se agragó el usuario {usuario} en la tabla de usuarios"
@@ -158,7 +158,7 @@ def testUpdate(usuario, email):
     return f"Se cambio el email {email} de {usuario}"
     
 
-@app.route("/mostrar-datos-plantilla/<int:id>")
+@app.route("/mostrar-datos/<int:id>")
 def datos_plantilla(id):
     abrirConexion()
     cursor = db.cursor()
@@ -175,3 +175,12 @@ def datos_plantilla(id):
         direccion=res['direccion']
         telefono=res['telefono']
     return render_template("datos.html", id=id, usuario=usuario, email=email, direccion=direccion, telefono=telefono)
+
+@app.route("/lista_de_usuarios")
+def mostrar_usuarios():
+    abrirConexion()
+    cursor = db.cursor()
+    cursor.execute("SELECT id, usuario FROM usuarios; ")
+    usuarios = cursor.fetchall()
+    cerrarConexion()
+    return render_template("actividades.html", usuarios = usuarios)
